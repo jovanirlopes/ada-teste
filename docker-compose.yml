@@ -10,7 +10,10 @@ services:
     environment:
       MARIADB_ROOT_PASSWORD: ada-teste
       MARIADB_DATABASE: ada-db
-
+  back:
+    build: ./BACK
+    ports:
+      - "5000:5000"
   front:
     build: ./FRONT
     ports:
