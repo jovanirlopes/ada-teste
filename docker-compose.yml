@@ -1,0 +1,20 @@
+version: '3.1'
+
+services:
+  db:
+    image: mariadb
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MARIADB_ROOT_PASSWORD: ada-teste
+      MARIADB_DATABASE: ada-db
+
+  front:
+    build: ./FRONT
+    ports:
+      - "3000:3000"
+
+volumes:
+  db_data:
