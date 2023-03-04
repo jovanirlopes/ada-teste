@@ -28,7 +28,7 @@ export class AuthController {
         const decoded: authPayload = jwt.verify(token, JWT_SECRET) as {
           username: string;
         };
-        res.locals = { user: decoded.username };
+        res.locals = { username: decoded.username };
         console.info(
           "[JWT Middleware]",
           "validated token for user:",
