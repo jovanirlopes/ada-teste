@@ -4,10 +4,32 @@ O propósito desse desafio é a criação de uma API que fará a persistência d
 
 ## Rodando a aplicação atraves do Docker
 
-Para subir a aplicação Front + Back + DB basta usar o comando ele rodara os containeres com as configurações padrões.
+### Para subir a aplicação Front + Back + DB basta usar o comando ele rodara os containeres com as configurações padrões.
 
 ```
-docker-compose up
+>docker-compose up
+```
+### Para executar o Frontend executar os seguintes comandos:
+
+```
+> cd FRONT
+> yarn
+> yarn start
+
+```
+### Para executar o Backend em modo desenvolvimento
+
+```
+> cd BACK
+> npm i
+> npm run dev
+```
+### Para executar o Backend em produção
+```
+> cd BACK
+> npm i
+> npm run build
+> npm run start
 ```
 
 Casonho tenha necessidade existem algumas variaveis que podem ser personalizada em um arquivo .env são elas:
