@@ -7,7 +7,7 @@ O propósito desse desafio é a criação de uma API que fará a persistência d
 ### Para subir a aplicação Front + Back + DB basta usar o comando ele rodara os containeres com as configurações padrões.
 
 ```
->docker-compose up
+> docker-compose up
 ```
 ### Para executar o Frontend executar os seguintes comandos:
 
