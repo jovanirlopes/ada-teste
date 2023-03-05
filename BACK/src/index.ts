@@ -5,13 +5,25 @@ import cors from "cors";
 import bodyParser = require("body-parser");
 import { cardsRouter } from "./routes/cards.routes";
 
+import {
+  cardCheckExist,
+  cardLogUpdateOrDelete,
+  cardValidateFields,
+  cardValidateId,
+} from "./controllers/card.controller";
+import { tokenValidation } from "./controllers/auth.controller";
+
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
 
 app.use(authRouter);
-// app.use(new AuthController().tokenValidation);
+app.use(tokenValidation);
+
+app.use("/cards", cardValidateFields);
+app.use("/cards/:id", [cardCheckExist, cardValidateId, cardLogUpdateOrDelete]);
+
 app.use(cardsRouter);
 
 app.listen(process.env.PORT, () => "Backend running on port 5000");

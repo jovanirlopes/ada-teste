@@ -9,8 +9,6 @@ export const listAllCards = async () => {
 export const creteCard = async (reqCard: CardCreationAttributes) => {
   const card = new Card(reqCard);
 
-  if (!checkEmpityFieldsInCard(card)) return false;
-
   await card.save();
   return card;
 };
@@ -18,14 +16,11 @@ export const creteCard = async (reqCard: CardCreationAttributes) => {
 export const deleteCard = async (id: number) => {
   const card = await Card.findByPk(id);
   if (!card) return null;
-
   await card.destroy();
   return card;
 };
 
 export const updateCard = async (id: number, cardBody: CardInterface) => {
-  if (id !== cardBody.id) return false;
-
   const card = await Card.findByPk(id);
 
   if (!card) return null;
@@ -35,6 +30,11 @@ export const updateCard = async (id: number, cardBody: CardInterface) => {
   return card;
 };
 
+export const checkCardExist = (id: number) => {
+  const card = Card.findByPk(id);
+  if (!card) return false;
+  return card;
+};
 
 export const checkEmpityFieldsInCard = (card: CardCreationAttributes) => {
   if (!card.conteudo || !card.titulo || !card.lista) return false;
