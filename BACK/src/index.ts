@@ -26,4 +26,7 @@ app.use("/cards/:id", [cardCheckExist, cardValidateId, cardLogUpdateOrDelete]);
 
 app.use(cardsRouter);
 
-app.listen(process.env.PORT, () => "Backend running on port 5000");
+app.listen(
+  process.env.PORT || 5000,
+  () => `Backend running on port ${process.env.PORT || 5000}`
+);
