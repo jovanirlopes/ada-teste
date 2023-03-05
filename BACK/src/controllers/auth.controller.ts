@@ -18,7 +18,7 @@ export const tokenValidation = (
 ) => {
   const authorization = req.headers.authorization;
   const token = authorization?.replace("Bearer ", "") || "";
-  const JWT_SECRET = process.env.JWT_SECRET || "";
+  const JWT_SECRET = process.env.JWT_SECRET || "secret";
 
   try {
     if (authorization) {

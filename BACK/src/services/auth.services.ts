@@ -3,7 +3,7 @@ import { Auth, AuthInterface } from "../models/auth.model";
 import jwt from "jsonwebtoken";
 
 const { DEFAULT_LOGIN, DEFAULT_PASSWORD } = process.env;
-const JWT_SECRET = process.env.JWT_SECRET || "";
+const JWT_SECRET = process.env.JWT_SECRET || "secret";
 
 const checkUser = (userInfo: AuthInterface): boolean => {
   if (
