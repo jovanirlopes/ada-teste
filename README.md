@@ -31,8 +31,8 @@ O propósito desse desafio é a criação de uma API que fará a persistência d
 > npm run build
 > npm run start
 ```
-
-Casonho tenha necessidade existem algumas variaveis que podem ser personalizada em um arquivo .env são elas:
+## Variáveis
+### Casonho tenha necessidade existem algumas variaveis que podem ser personalizada em um arquivo .env são elas:
 
 ALterar a porta em que o backend escutará.
 ```
