@@ -1,56 +1,58 @@
+import { creteCard, deleteCard, updateCard } from "./../services/card.services";
 import { Request, Response } from "express";
 import { Card } from "../models/card.model";
+import { listAllCards } from "../services/card.services";
 
 export class CardsController {
   async listAll(req: Request, res: Response) {
-    const cards = await Card.findAll();
-    res.json(cards);
+    try {
+      const cards = await listAllCards();
+      res.json(cards).end();
+    } catch (error) {
+      res.status(400).end();
+    }
   }
 
   async create(req: Request, res: Response) {
-    if (!req.body.titulo || !req.body.conteudo) {
-      res.status(400);
-      return res.end();
-    }
+    const { titulo, conteudo, lista } = req.body;
+
     try {
-      const card = await Card.create(req.body);
-      res.status(201).json(card);
-      res.end();
+      const card = await creteCard({ titulo, conteudo, lista });
+
+      if (card) res.status(201).json(card).end();
+
+      throw new Error("Invalid card");
     } catch (error) {
-      res.status(400);
+      res.status(400).end();
     }
   }
 
   async delete(req: Request, res: Response) {
-    const card = await Card.findByPk(req.params.id);
-    if (!card) {
-      res.status(404);
-      return res.end();
+    try {
+      const id = parseInt(req.params.id);
+      const card = await deleteCard(id);
+      if (card === null) res.status(404).end();
+
+      const cards = await listAllCards();
+      res.json(cards).end();
+    } catch (error) {
+      res.status(400).end();
     }
-    await card.destroy();
-    const cards = await Card.findAll();
-    res.json(cards);
   }
 
   async update(req: Request, res: Response) {
     const paramId = parseInt(req.params.id);
+    const { id, titulo, conteudo, lista } = req.body;
     try {
-      if (!req.body.titulo || !req.body.conteudo)
-        throw new Error("Empity fields is not permited");
-      if (req.body.id !== paramId)
-        throw new Error("Request id dosent match with card id");
+      const card = await updateCard(paramId, { id, titulo, conteudo, lista });
 
-      const card = await Card.findByPk(req.params.id);
+      if (card === false) throw new Error("Empity field");
 
-      if (!card) {
-        res.status(404);
-        return res.end();
-      }
-      await card.update(req.body);
-      res.json(card);
-    } catch (error) {
-      res.status(400);
-      return res.end();
+      if (!card) res.status(404).end();
+
+      res.json(card).end();
+    } catch (err) {
+      res.status(400).end();
     }
   }
 }

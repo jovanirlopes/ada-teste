@@ -7,15 +7,9 @@ export class AuthController {
   login(req: Request, res: Response) {
     const token = authUser(req.body.login, req.body.senha);
     if (!token) {
-      console.info("[Auth]", "Not autorized:", req.body);
-      res.status(401).json({ message: "Invalid credentials" });
-      res.end();
-      return;
+      res.status(401).json({ message: "Invalid credentials" }).end();
     }
-    console.info("[Auth]", "Auth success:", req.body);
-    res.json(token);
-    res.end();
-    return;
+    res.json(token).end();
   }
 
   tokenValidation(req: Request, res: Response, next: NextFunction) {
@@ -28,21 +22,11 @@ export class AuthController {
         const decoded: authPayload = jwt.verify(token, JWT_SECRET) as {
           username: string;
         };
-        res.locals = { username: decoded.username };
-        console.info(
-          "[JWT Middleware]",
-          "validated token for user:",
-          decoded.username
-        );
       } else {
-        console.info("[JWT Middleware]", "Token not found");
         throw new Error("Token not found");
       }
     } catch (error) {
-      console.info("[JWT Middleware]", "Invalid token");
-      res.status(401).send({ message: "Invalid token" });
-      res.end();
-      return;
+      res.status(401).send({ message: "Invalid token" }).end();
     }
     next();
   }
