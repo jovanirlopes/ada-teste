@@ -8,6 +8,8 @@ services:
     environment:
       MARIADB_ROOT_PASSWORD: ada-teste
       MARIADB_DATABASE: ada-db
+    expose:
+      - 3306
   back:
     build: ./BACK
     links:
