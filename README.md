@@ -10,15 +10,12 @@ O propósito desse desafio é a criação de uma API que fará a persistência d
 > docker-compose up
 ```
 ### Para executar o Frontend executar os seguintes comandos:
-
 ```
 > cd FRONT
 > yarn
 > yarn start
-
 ```
 ### Para executar o Backend em modo desenvolvimento
-
 ```
 > cd BACK
 > npm i
